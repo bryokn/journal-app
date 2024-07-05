@@ -115,6 +115,44 @@ export const getEntries = async () => {
   return response.json();
 };
 
+// manage (get, update, delete) a journal entry by ID route
+export const getEntry = async (entryId) => {
+  const token = await getToken();
+  const response = await fetch(`${API_URL}/entries/${entryId}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch entry');
+  return response.json();
+};
+
+export const updateEntry = async (entryId, entryData) => {
+  const token = await getToken();
+  const response = await fetch(`${API_URL}/entries/${entryId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(entryData),
+  });
+  if (!response.ok) throw new Error('Failed to update entry');
+  return response.json();
+};
+
+export const deleteEntry = async (entryId) => {
+  const token = await getToken();
+  const response = await fetch(`${API_URL}/entries/${entryId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) throw new Error('Failed to delete entry');
+  return response.json();
+};
+
 export const getSummary = async (period) => {
   const token = await getToken();
   const response = await fetch(`${API_URL}/summary?period=${period}`, {
