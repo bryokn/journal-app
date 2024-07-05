@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { login } from './api';
+import { login } from '../services/api';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 const LoginScreen = ({ navigation, setIsLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+//   const navigation = useNavigation();
 
   const handleLogin = async () => {
     try {
@@ -16,21 +22,40 @@ const LoginScreen = ({ navigation, setIsLoggedIn }) => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+
   return (
     <View style={styles.container}>
+        <Text style={styles.heading}>PERSONAL JOURNAL APP</Text>
+        <Text style={styles.title}>LOGIN</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+        />
+        <TouchableOpacity
+          style={styles.eyeIcon}
+          onPress={togglePasswordVisibility}
+        >
+          <Ionicons 
+            name={showPassword ? "eye-off" : "eye"} 
+            size={24} 
+            color="#007AFF" 
+          />
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity style={styles.buttonPrimary} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -51,6 +76,21 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#f5f5f5',
   },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#007AFF',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  heading: {
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: 'green',
+    marginBottom: 24,
+    marginTop: 10,
+    textAlign: 'center',
+  },
   input: {
     height: 50,
     borderColor: '#ddd',
@@ -60,6 +100,24 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'white',
     fontSize: 16,
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: 'white',
+  },
+  passwordInput: {
+    flex: 1,
+    height: 50,
+    paddingHorizontal: 12,
+    fontSize: 16,
+  },
+  eyeIcon: {
+    padding: 10,
   },
   buttonPrimary: {
     backgroundColor: '#007AFF',
@@ -89,63 +147,3 @@ const styles = StyleSheet.create({
 });
 
 export { LoginScreen };
-
-
-
-
-// // LoginScreen.tsx
-// import React, { useState } from 'react';
-// import { View, TextInput, Button, Text, Alert, StyleSheet } from 'react-native';
-// import { login } from './api';
-
-// const LoginScreen: React.FC = () => {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-
-//   const handleLogin = async () => {
-//     try {
-//       const response = await login(username, password);
-//       Alert.alert('Success', 'Logged in successfully!');
-//       // Here you would typically save the access token and navigate to the main app screen
-//       console.log('Access Token:', response.access_token);
-//     } catch (error) {
-//       Alert.alert('Error', 'Invalid username or password');
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Username"
-//         value={username}
-//         onChangeText={setUsername}
-//       />
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Password"
-//         value={password}
-//         onChangeText={setPassword}
-//         secureTextEntry
-//       />
-//       <Button title="Login" onPress={handleLogin} />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     padding: 16,
-//   },
-//   input: {
-//     height: 40,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginBottom: 12,
-//     paddingHorizontal: 8,
-//   },
-// });
-
-// export { LoginScreen };

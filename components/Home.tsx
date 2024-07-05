@@ -1,12 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 export const HomeScreen = () => {
   const navigation = useNavigation();
 
+  const handleLogout = () => {
+    console.log('Logout button pressed');
+    // Navigate back to the Login screen
+    // setIsLoggedIn(false);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+  };
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity 
+        style={styles.logoutButton} 
+        onPress={handleLogout}
+        activeOpacity={0.7}
+        >
+        <Text style={styles.logoutText}>Logout</Text>
+        <Ionicons name="log-out-outline" size={24} color="#007AFF" />
+</TouchableOpacity>
       <Text style={styles.title}>Your Journal App</Text>
       <Text style={styles.subtitle}>Write your thoughts away!</Text>
       <View style={styles.buttonContainer}>
@@ -49,5 +68,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
+  },
+  logoutButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    zIndex: 1,
   },
 });
