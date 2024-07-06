@@ -30,6 +30,7 @@ const LoginScreen = ({ navigation, setIsLoggedIn }) => {
   return (
     <View style={styles.container}>
         <Text style={styles.heading}>PERSONAL JOURNAL APP</Text>
+        <Text style={styles.subtitle}>Journaling for the mind, body and soul.</Text>
         <Text style={styles.title}>LOGIN</Text>
       <TextInput
         style={styles.input}
@@ -81,6 +82,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#007AFF',
     marginBottom: 24,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    marginBottom: 30,
+    color: '#666',
     textAlign: 'center',
   },
   heading: {

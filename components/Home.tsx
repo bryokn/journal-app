@@ -35,7 +35,7 @@ export const HomeScreen = ({ setIsLoggedIn }) => {
         <Ionicons name="log-out-outline" size={24} color="#007AFF" />
       </TouchableOpacity>
       <Text style={styles.title}>Your Journal App</Text>
-      <Text style={styles.subtitle}>Write your thoughts away!</Text>
+      <Text style={styles.subtitle}>Transform your thoughts into words.</Text>
       <View style={styles.tilesContainer}>
         {tiles.map((tile, index) => (
           <TouchableOpacity
