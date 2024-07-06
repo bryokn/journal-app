@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   tile: {
-    width: '25%',
+    width: '35%',
     aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',

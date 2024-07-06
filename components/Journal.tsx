@@ -29,18 +29,21 @@ export const JournalScreen = () => {
         </TouchableOpacity>
         <Text style={styles.title}>New Journal Entry</Text>
       </View>
+      <Text style={styles.inputLabel}>Journal Title</Text>
       <TextInput
         style={styles.input}
         placeholder="Title"
         value={title}
         onChangeText={setTitle}
       />
+      <Text style={styles.inputLabel}>Journal Category</Text>
       <TextInput
         style={styles.input}
         placeholder="Category"
         value={category}
         onChangeText={setCategory}
       />
+      <Text style={styles.inputLabel}>Journal Content</Text>
       <TextInput
         style={[styles.input, styles.contentInput]}
         placeholder="Write your thoughts..."
@@ -48,7 +51,7 @@ export const JournalScreen = () => {
         onChangeText={setContent}
         multiline
       />
-      <Button title="Save Entry" onPress={handleSubmit} />
+      <Button title="Save Journal" onPress={handleSubmit} />
     </View>
   );
 };
@@ -76,6 +79,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
+  },
+  inputLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#0033cc',
   },
   contentInput: {
     height: 150,
