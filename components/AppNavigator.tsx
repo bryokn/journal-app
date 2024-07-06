@@ -20,7 +20,10 @@ function AppNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isLoggedIn ? (
         <>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
+          <Stack.Screen name="Home">
+            {props => <HomeScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
+          </Stack.Screen>
           <Stack.Screen name="Journal" component={JournalScreen} />
           <Stack.Screen name="AllJournals" component={AllJournalsScreen} />
           <Stack.Screen name="JournalDetail" component={JournalDetailScreen} />

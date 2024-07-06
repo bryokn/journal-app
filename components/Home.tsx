@@ -2,16 +2,18 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { logout } from '../services/api';
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ setIsLoggedIn }) => {
   const navigation = useNavigation();
 
-  const handleLogout = () => {
-    console.log('Logout button pressed');
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
   };
 
   const tiles = [
