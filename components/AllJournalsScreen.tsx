@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { getEntries } from '../services/api';
@@ -29,30 +29,27 @@ export const AllJournalsScreen = () => {
       style={styles.journalItem}
       onPress={() => navigation.navigate('JournalDetail', { journalId: item.id })}
     >
-      <Text style={styles.journalTitle}>{item.title}</Text>
-      <Text style={styles.journalDate}>{new Date(item.date).toLocaleDateString()}</Text>
-      <Text style={styles.journalCategory}>{item.category}</Text>
+      <View style={styles.journalContent}>
+        <Text style={styles.journalTitle}>{item.title}</Text>
+        <Text style={styles.journalDate}>{new Date(item.date).toLocaleDateString()}</Text>
+      </View>
+      <View style={styles.categoryContainer}>
+        <Text style={styles.journalCategory}>{item.category}</Text>
+      </View>
     </TouchableOpacity>
   );
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading journals...</Text>
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.container}>
-      <TouchableOpacity 
-        style={styles.backButton} 
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="arrow-back" size={24} color="#007AFF" />
-      </TouchableOpacity>
-      <Text style={styles.title}>All Journals</Text>
-      {journals.length > 0 ? (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#007AFF" />
+        </TouchableOpacity>
+        <Text style={styles.title}>All Journals</Text>
+      </View>
+      {loading ? (
+        <ActivityIndicator size="large" color="#007AFF" />
+      ) : journals.length > 0 ? (
         <FlatList
           data={journals}
           renderItem={renderJournalItem}
@@ -60,61 +57,86 @@ export const AllJournalsScreen = () => {
           contentContainerStyle={styles.listContainer}
         />
       ) : (
-        <Text style={styles.emptyText}>No journals found</Text>
+        <View style={styles.emptyContainer}>
+          <Ionicons name="journal-outline" size={64} color="#ccc" />
+          <Text style={styles.emptyText}>No journals found</Text>
+        </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  backButton: {
+    marginRight: 15,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
+    color: '#333',
   },
   listContainer: {
-    paddingBottom: 20,
+    padding: 20,
   },
   journalItem: {
     backgroundColor: 'white',
-    padding: 15,
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  journalContent: {
+    flex: 1,
+    padding: 15,
   },
   journalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: '#333',
   },
   journalDate: {
     fontSize: 14,
     color: '#666',
   },
+  categoryContainer: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+  },
   journalCategory: {
     fontSize: 14,
-    color: '#007AFF',
-    marginTop: 5,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   emptyText: {
-    textAlign: 'center',
-    fontSize: 16,
+    marginTop: 10,
+    fontSize: 18,
     color: '#666',
-  },
-  backButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 1,
   },
 });

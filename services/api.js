@@ -175,6 +175,7 @@ export const getUserInfo = async () => {
   return response.json();
 };
 
+//Update user info(username and password)
 export const updateUserInfo = async (userData) => {
   const token = await getToken();
   const response = await fetch(`${API_URL}/user`, {
@@ -186,5 +187,17 @@ export const updateUserInfo = async (userData) => {
     body: JSON.stringify(userData),
   });
   if (!response.ok) throw new Error('Failed to update user info');
+  return response.json();
+};
+
+//get Journals by category
+export const getEntriesByCategory = async (category) => {
+  const token = await getToken();
+  const response = await fetch(`${API_URL}/entries/category/${encodeURIComponent(category)}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) throw new Error('Failed to fetch entries for this category');
   return response.json();
 };
