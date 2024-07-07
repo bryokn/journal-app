@@ -1,50 +1,56 @@
-# Welcome to your Expo app 👋
+# Personal Journal App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Description
 
-## Get started
+This is a mobile application built with React Native and Expo that allows users to create, manage, and categorize personal journal entries. The app provides features such as user authentication, journal entry creation and management, category-based organization, and summary views.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- User Authentication (Login/Register)
+- Create, Read, Update, and Delete journal entries
+- Categorize journal entries
+- View all journal entries
+- Filter journal entries by category
+- User settings management
+- Summary view of journal entries
 
-2. Start the app
+## Prerequisites
 
-   ```bash
-    npx expo start
-   ```
+- Node.js
+- npm 
+- Expo CLI ()
 
-In the output, you'll find options to open the app in a
+## Installation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Clone the repository:
+   - `git clone https://github.com/bryokn/journal-app.git`
+   - cd journal-app
+2. Install dependencies:
+   - npm install
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Running the App
 
-## Get a fresh project
+1. Start the Expo development server:
+   ` npm expo start` or `npm start`
+2. Use the Expo Go app on your mobile device to scan the QR code, or run on an emulator/simulator.
 
-When you're ready, run:
+## Development
 
-```bash
-npm run reset-project
-```
+- The main application logic is in the `app/` directory.
+- React components are located in the `components/` directory.
+- API services are defined in `service/api.js`.
+- Styling constants are in `constants/Colors.ts`.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## API Configuration
 
-## Learn more
+The app communicates with a backend API. The API URL is defined in `service/api.js`. Make sure to update this URL to match your backend server:
 
-To learn more about developing your project with Expo, look at the following resources:
+   `const API_URL = 'http://your-api-url.com';` (If running on your local machine, use your machines IP address. On Ubuntu you can get this by typing `ifconfig` on terminal.)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The backend for this project can be found at `https://github.com/bryokn/journal_backend.git`
 
-## Join the community
+### Make sure your backend is running before running the app(frontend)
 
-Join our community of developers creating universal apps.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Contact
+Kipkirui Brian - `kipkiruibn@gmail.com`
